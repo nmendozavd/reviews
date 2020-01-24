@@ -1,0 +1,33 @@
+{
+  "name": "reviews",
+  "version": "1.0.0",
+  "description": "Mock for reviews component at airbnb website using react and css",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "nodemon database/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/9-airbnb-again/reviews.git"
+  },
+  "author": "Gal Weinstock",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/9-airbnb-again/reviews/issues"
+  },
+  "homepage": "https://github.com/9-airbnb-again/reviews#readme",
+  "dependencies": {
+    "mongoose": "^5.8.9",
+    "nodemon": "^2.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "faker": "^4.1.0"
+  }
+}
