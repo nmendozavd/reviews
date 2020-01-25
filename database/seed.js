@@ -10,7 +10,7 @@ db.once('open', function () {
 })
 
 var reviewSchema = new mongoose.Schema({
-  _id: { type: mongoose.Types.ObjectId, required: true },
+  accommodationId: { type: Number, required: true },
   scores: {
     accuracy: { type: mongoose.Types.Decimal128 },
     communication: { type: mongoose.Types.Decimal128 },
@@ -36,12 +36,11 @@ var reviewSchema = new mongoose.Schema({
 
 const Review = mongoose.model('Review', reviewSchema);
 
-const FAKE_DATA_SIZE = 100;
-const fakeReviewsArray = [];
+const FAKE_DATA_SIZE = 10000;
 
 for (let i = 0; i < FAKE_DATA_SIZE; i++) {
   const review = {
-    _id: mongoose.Types.ObjectId(),
+    accommodationId: Math.floor(((Math.random() * 100))),
     scores: {
       accuracy: Math.round(((Math.random() * 5) + Number.EPSILON + 0.1) * 10) / 10,
       communication: Math.round(((Math.random() * 5) + Number.EPSILON + 0.1) * 10) / 10,
@@ -57,13 +56,13 @@ for (let i = 0; i < FAKE_DATA_SIZE; i++) {
     },
     reviewAuthorDetails: {
       name: faker.name.findName(),
-      userPicture: faker.image.avatar(),
+      userPicture: `https://airbnb-reviews-users-pictures.s3-us-west-1.amazonaws.com/${Math.ceil(Math.random * 3000)}.jpg`,
       userPageLink: faker.internet.url(),
       date: faker.date.recent(),
       reviewText: faker.lorem.paragraphs()
     }
   };
-  fakeReviewsArray.push(review);
+  // fakeReviewsArray.push(review);
   // console.log(`${i}. `);
   // console.log(review);
   // console.log('-----------------------------------------------');
@@ -76,8 +75,8 @@ for (let i = 0; i < FAKE_DATA_SIZE; i++) {
     if (err) {
       console.log(err);
     } else {
+      console.log(`${i}.`)
       console.log(`${reviewEntry._id} has been saved to the db.`);
     }
   });
 }
-
