@@ -1,40 +1,5 @@
-const mongoose = require('mongoose');
-var faker = require('faker');
-
-mongoose.connect('mongodb://localhost/airbnbReviews', { useNewUrlParser: true, useUnifiedTopology: true });
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-  console.log("we're connected to airbnb DB!");
-})
-
-var reviewSchema = new mongoose.Schema({
-  accommodationId: { type: Number, required: true },
-  scores: {
-    accuracy: { type: mongoose.Types.Decimal128 },
-    communication: { type: mongoose.Types.Decimal128 },
-    cleanliness: { type: mongoose.Types.Decimal128 },
-    checkIn: { type: mongoose.Types.Decimal128 },
-    value: { type: mongoose.Types.Decimal128 },
-    location: { type: mongoose.Types.Decimal128 },
-    outstandingHospitality: Boolean,
-    quickResponses: Boolean,
-    stylishSpace: Boolean,
-    sparklingClean: Boolean,
-    amazingAmenities: Boolean
-  },
-  reviewAuthorDetails: {
-    name: String,
-    userPicture: String,
-    userPageLink: String,
-    date: Date,
-    reviewText: String
-  }
-}
-);
-
-const Review = mongoose.model('Review', reviewSchema);
+const faker = require('faker');
+const dbReviewModel = require('./index.js');
 
 const FAKE_DATA_SIZE = 10000;
 
@@ -56,7 +21,7 @@ for (let i = 0; i < FAKE_DATA_SIZE; i++) {
     },
     reviewAuthorDetails: {
       name: faker.name.findName(),
-      userPicture: `https://airbnb-reviews-users-pictures.s3-us-west-1.amazonaws.com/${Math.ceil(Math.random * 3000)}.jpg`,
+      userPicture: `https://airbnb-reviews-users-pictures.s3-us-west-1.amazonaws.com/${Math.ceil(Math.random() * 3000)}.jpg`,
       userPageLink: faker.internet.url(),
       date: faker.date.recent(),
       reviewText: faker.lorem.paragraphs()
@@ -68,8 +33,7 @@ for (let i = 0; i < FAKE_DATA_SIZE; i++) {
   // console.log('-----------------------------------------------');
   // console.log();
 
-  // const reviewEntry = new Review(review);
-  const reviewEntry = new Review(review);
+  const reviewEntry = new dbReviewModel.Review(review);
 
   reviewEntry.save((err, review) => {
     if (err) {
