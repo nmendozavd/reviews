@@ -4,7 +4,7 @@
   "description": "Mock for reviews component at airbnb website using react and css",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "seed": "node database/seed.js",
     "react-dev": "webpack -d --watch"
   },
@@ -41,5 +41,11 @@
     "jest": "^25.1.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/react"
+    ]
   }
 }
