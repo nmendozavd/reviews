@@ -15,11 +15,24 @@ describe(
       reviewText: 'lorem ipsum'
     };
 
-    it(
-      'Displays the avatar', () => {
-        const wrapper = shallow(<ReviewEntry review={review} />);
-        expect(wrapper.find('img').props().src).toEqual('portrait1.jpg');
-      }
-    )
+    it('Displays the avatar of the user', () => {
+      const wrapper = shallow(<ReviewEntry review={review} />);
+      expect(wrapper.find('img').props().src).toEqual('portrait1.jpg');
+    });
+
+    it('Displays the first name of the user', () => {
+      const wrapper = shallow(<ReviewEntry review={review} />);
+      expect(wrapper.find('h2').text()).toEqual('David');
+    });
+
+    it('Displays the date of the review', () => {
+      const wrapper = shallow(<ReviewEntry review={review} />);
+      expect(wrapper.find('h2').text()).toEqual('January 2020');
+    });
+
+    it('Displays the text of the review', () => {
+      const wrapper = shallow(<ReviewEntry review={review} />);
+      expect(wrapper.find('h2').text()).toEqual('lorem ipsum');
+    });
   }
 );
