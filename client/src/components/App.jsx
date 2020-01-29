@@ -1,8 +1,9 @@
 import React from 'react';
+import Reviews from './Reviews.jsx'
 
 const App = function (props) {
   return (
-    <h1>Review for this house: {props.houseTitle}</h1>
+    <Reviews />
   )
 }
 

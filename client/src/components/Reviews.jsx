@@ -2,8 +2,9 @@ import React from 'react';
 
 const Reviews = function (props) {
   return (
-    <div class="Reviews">
+    <div className="Reviews">
       <h1>Reviews</h1>
+      
     </div>
   )
 }
