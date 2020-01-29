@@ -5,6 +5,7 @@ module.exports = {
     node: true,
   },
   extends: [
+    'plugin:react/recommended',
     'airbnb',
   ],
   globals: {
@@ -22,5 +23,6 @@ module.exports = {
     'react',
   ],
   rules: {
+    "semi": ["error", "always"]
   },
 };
