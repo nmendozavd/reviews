@@ -1,6 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import ReviewEntry from '../client/src/components/ReviewEntry.jsx'
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe(
   'ReviewEntry', () => {
