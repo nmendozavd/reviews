@@ -1,12 +1,14 @@
 import React from 'react';
 
-const ReviewEntry = function (props) {
+const ReviewEntry = ({ review }) => {
   return (
     <div className="ReviewEntry">
-      <img src={props.review.avatar}></img>
-      
+      <img src={review.avatar}></img>
+      <h2>{review.firstName}</h2>
+      <h2>{review.date}</h2>
+      <h2>{review.reviewText}</h2>
     </div>
-  )
-}
+  );
+};
 
 export default ReviewEntry;
