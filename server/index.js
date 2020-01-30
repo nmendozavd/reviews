@@ -4,8 +4,6 @@ const app = express();
 const port = 2020;
 const path = require('path');
 
-// app.get('/', (req, res) => res.send('Hi there, this is the main endpoint\n'));
-
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get(
