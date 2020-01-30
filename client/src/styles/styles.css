@@ -1,8 +1,63 @@
+/* 
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+---------------------------------------  REVIEW ENTRY  ------------------------------------------
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+*/
+.reviewEntry {
+  padding: 30px 30px 30px 30px;
+}
 
-/* * {
-  border: solid red;
-} */
+.reviewHeader{
+  display: flex;
+}
 
-.avatar {
-  border: solid blue;
+.authoringDetails {
+  padding: 0px 0px 20px 0px;
+}
+
+.avatarContainer {
+  padding: 0px 20px 0px 0px;
+}
+
+.avatarContainer img {
+  height: 48px;
+  width: 48px;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.firstName {
+  margin: 0px;
+  word-wrap: break-word;
+  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.375em;
+  color: #484848;
+}
+
+.date {
+  margin: 0px;
+  word-wrap: break-word;
+  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.28571em;
+  color: #484848;
+}
+
+.reviewText {
+  overflow-wrap: break-word;
+  margin: 0px;
+  word-wrap: break-word;
+  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.375em;
+  color: #484848;
+  border-bottom: solid #e3e3e3;
+  border-width: 1px;
+  padding: 0px 0px 30px 00px;
 }

@@ -1,17 +1,19 @@
 import React from 'react';
-// import Avatar from './Avatar.jsx';
-// import FirstName from './FirstName.jsx';
-// import Date from './Date.jsx';
-// import ReviewText from './ReviewText.jsx';
 import styles from '../styles/styles.css';
 
 const ReviewEntry = ({ review }) => {
   return (
-    <div className="ReviewEntry">
-      <div className={styles.avatar}><img src={review.avatar}></img></div>
-      <div>{review.firstName}</div>
-      <div>{review.date}</div>
-      <div>{review.reviewText}</div>
+    <div className={styles.reviewEntry}>
+      <div className={styles.reviewHeader}>
+        <div className={styles.avatarContainer}>
+          <img src={review.avatar} alt="avatar"/>
+        </div>
+        <div className={styles.authoringDetails}>
+          <div className={styles.firstName}>{review.firstName}</div>
+          <div className={styles.date}>{review.date}</div>
+        </div>
+      </div>
+      <div className={styles.reviewText}>{review.reviewText}</div>
     </div>
   );
 };
