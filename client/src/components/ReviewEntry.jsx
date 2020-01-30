@@ -1,12 +1,16 @@
 import React from 'react';
+// import Avatar from './Avatar.jsx';
+// import FirstName from './FirstName.jsx';
+// import Date from './Date.jsx';
+// import ReviewText from './ReviewText.jsx';
 
 const ReviewEntry = ({ review }) => {
   return (
     <div className="ReviewEntry">
-      <img src={review.avatar}></img>
-      <h2>{review.firstName}</h2>
-      <h2>{review.date}</h2>
-      <h2>{review.reviewText}</h2>
+      <div><img src={review.avatar}></img></div>
+      <div>{review.firstName}</div>
+      <div>{review.date}</div>
+      <div>{review.reviewText}</div>
     </div>
   );
 };
