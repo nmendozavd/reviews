@@ -1,6 +1,6 @@
 import React from 'react';
 import ReviewEntry from './ReviewEntry.jsx';
-import faker from 'faker';
+import ReviewsHeader from './ReviewsHeader.jsx';
 
 const Reviews = function (props) {
   const reviewEntriesArray = [
@@ -51,6 +51,7 @@ const Reviews = function (props) {
 
   return (
     <div className="Reviews">
+      <ReviewsHeader />
       {reviewEntriesArray.map(r => <ReviewEntry review={r} />)}
     </div>
   )
