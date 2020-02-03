@@ -59,12 +59,9 @@ class Reviews extends React.Component {
     // console.log(this.props.reviews.data);
     // console.log(this.state.reviews)
     let myArray = this.props.reviews;
-    // console.log(Array.isArray(myArray));
     return (
       <div className="Reviews">
         <ReviewsHeader />
-        {/* {reviewEntriesArray.map(r => <ReviewEntry review={r} />)} */}
-        {/* {this.state.reviews.map(r => <ReviewEntry review={r} />)} */}
         {this.props.reviews.map(r => <ReviewEntry review={r} />)}
       </div >
     );
