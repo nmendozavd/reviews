@@ -10,20 +10,20 @@
 }
 
 .secondLineHeader {
-  border: solid red;
+  /* border: solid red; */
   display: flex;
   justify-content: space-between;
 }
 
 .stats {
-  border: solid green;
+  /* border: solid green; */
   display: flex;
   justify-content: space-between;
   width: 200px;
 }
 
 .search {
-  border: solid green;
+  /* border: solid green; */
   display: flex;
 }
 

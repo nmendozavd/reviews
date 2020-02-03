@@ -2,7 +2,7 @@ import React from 'react';
 import ReviewEntry from './ReviewEntry.jsx';
 import ReviewsHeader from './ReviewsHeader.jsx';
 
-const Reviews = function (props) {
+function Reviews(props) {
   const reviewEntriesArray = [
     {
       avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/xamorep/128.jpg',
@@ -46,17 +46,15 @@ const Reviews = function (props) {
       date: 'February 2019',
       reviewText: 'Quos laboriosam quidem vel doloremque porro expedita. Sapiente quis nobis at distinctio qui placeat nihil assumenda omnis. Et velit dolorum dolorum maiores quod rem perferendis. Cum saepe tenetur et numquam. Eos maxime dolorem voluptatem nihil. Ducimus explicabo nobis labore et.'
     },
-
   ];
 
   return (
     <div className="Reviews">
       <ReviewsHeader />
-      {reviewEntriesArray.map(r => <ReviewEntry review={r} />)}
+      {/* {reviewEntriesArray.map(r => <ReviewEntry review={r} />)} */}
+      {props.reviews.map(r => <ReviewEntry review={r} />)}
     </div>
-  )
-}
-
-
+  );
+};
 
 export default Reviews;

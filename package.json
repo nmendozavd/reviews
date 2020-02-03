@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/9-airbnb-again/reviews#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "identity-obj-proxy": "^3.0.0",
     "mongoose": "^5.8.9",
     "nodemon": "^2.0.2",
