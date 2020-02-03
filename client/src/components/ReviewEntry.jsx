@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../../dist/styles/styles.css';
 
 const ReviewEntry = ({ review }) => {
+  // console.log(review);
   return (
     <div className={styles.reviewEntry}>
       <div className={styles.reviewHeader}>

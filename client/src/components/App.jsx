@@ -4,7 +4,6 @@ import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
-
     super(props);
     this.state = {
       reviews: []
@@ -12,15 +11,12 @@ class App extends React.Component {
 
     axios.get(`/v1/api/${Math.floor(Math.random() * 100)}/reviews`)
       .then((response) => {
-        this.setState({ reviews: response })
+        this.setState({ reviews: response.data })
+        // console.log(this.state.reviews)
       })
       .catch((error) => { console.log('Could not get the data from the server', error) });
-
-
   }
   render() {
-
-
     return (<Reviews reviews={this.state.reviews} />);
   }
 }
