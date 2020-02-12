@@ -5,7 +5,7 @@ const FAKE_DATA_SIZE = 10000;
 
 for (let i = 0; i < FAKE_DATA_SIZE; i++) {
   const review = {
-    accommodationId: Math.floor(((Math.random() * 100))),
+    accommodationId: i,
     scores: {
       accuracy: Math.round(((Math.random() * 5) + Number.EPSILON + 0.1) * 10) / 10,
       communication: Math.round(((Math.random() * 5) + Number.EPSILON + 0.1) * 10) / 10,
