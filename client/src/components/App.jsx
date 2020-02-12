@@ -51,7 +51,7 @@ function getStatsAndScores(arrayOfReviews) {
     res.cleanlinessScore += parseFloat(arrayOfReviews[i].scores.cleanliness.$numberDecimal);
   }
 
-  console.log(res.communicationScore);
+  // console.log(res.communicationScore);
 
   res.communicationScore /= arrayOfReviews.length;
   res.accuracyScore /= arrayOfReviews.length;
@@ -61,7 +61,7 @@ function getStatsAndScores(arrayOfReviews) {
   res.cleanlinessScore /= arrayOfReviews.length;
 
 
-  console.log(res.communicationScore);
+  // console.log(res.communicationScore);
 
   res.starAvg =
     res.communicationScore +
