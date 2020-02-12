@@ -47,7 +47,44 @@ const getAllReviewsForSpecificHouse = function (callback, houseId) {
   });
 };
 
+const insertData = function (callback, houseId) {
+  Review.insertMany(
+    {
+    accommodationId: 1001,
+    scores: {
+      accuracy: 3.6,
+      communication: 3.5,
+      cleanliness: 4.5,
+      checkIn: 3.0,
+      value: 4.5,
+      location: 3.1,
+      outstandingHospitality: true,
+      quickResponses: true,
+      stylishSpace: true,
+      sparklingClean: true,
+      amazingAmenities:true
+    },
+    reviewAuthorDetails: {
+      name: 'Noel Mendoza',
+      userPicture: 'https://airbnb-reviews-users-pictures.s3-us-west-1.amazonaws.com/1986.jpg',
+      userPageLink: 'http://burnice.com',
+      date: '2020-02-11T12:18:53.109Z',
+      reviewText: 'I would never stay in this shit hole again!'
+    }
+  }, function (err, review) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(review)
+      callback('Posted to DB successfully');
+    }
+  }
+
+  )
+}
+
 module.exports = {
   Review,
-  getAllReviewsForSpecificHouse
+  getAllReviewsForSpecificHouse,
+  insertData
 };
