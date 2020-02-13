@@ -36,6 +36,7 @@ var reviewSchema = new mongoose.Schema(
 
 const Review = mongoose.model('Review', reviewSchema);
 
+// READ ITEMS FROM DC (GET)
 const getAllReviewsForSpecificHouse = function (callback, houseId) {
   Review.find({ "accommodationId": houseId }, function (err, reviews) {
     if (err) {
@@ -47,10 +48,11 @@ const getAllReviewsForSpecificHouse = function (callback, houseId) {
   });
 };
 
-const insertData = function (callback, houseId) {
+// INSERT INTO DB (POST)
+const insertData = function (callback) {
   Review.insertMany(
     {
-    accommodationId: 1001,
+    accommodationId: 10000,
     scores: {
       accuracy: 3.6,
       communication: 3.5,
@@ -83,8 +85,42 @@ const insertData = function (callback, houseId) {
   )
 }
 
+// UPDATE RECORD IN DB (PUT)
+const updateData = function (callback) {
+  Review.updateOne(
+    { "accommodationId": 10000 },
+    { 
+      $set: { "reviewAuthorDetails.name": "John Doe" }
+    }, function (err, review) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(review);
+        callback('Successfully updated record')
+      }
+    }
+
+  )
+}
+
+// DELETE RECORD IN DB (DELETE)
+const deleteData = function (callback) {
+  Review.deleteOne(
+    { "accommodationId": 10000 }, function (err , review) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(review);
+        callback('Successfully deleted record');
+      }
+    }
+  )
+}
+
 module.exports = {
   Review,
   getAllReviewsForSpecificHouse,
-  insertData
+  insertData,
+  updateData,
+  deleteData
 };
