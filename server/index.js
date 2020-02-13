@@ -16,24 +16,25 @@ app.get('/v1/api/:accommodationId/reviews', (req, res) => {
   );
 });
 
-app.post('/v1/api/1001/reviews', (req, res) => {
+app.post('/v1/api/10000/reviews', (req, res) => {
   dbReviewModel.insertData ((reviews) => {
-    res.send('Successfully Posted to DB');
-    
-  },
-  // req.params.accommodationId
-  );
+    res.send('Successfully posted record!');
+  });
 });
 
 
-// app.put('/', (req, res) => {
+app.put('/v1/api/10000/reviews', (req, res) => {
+  dbReviewModel.updateData ((review) => {
+    res.send('Successfully updated record!')
+  })
+});
 
-// });
 
-
-// app.delete('/', (req, res) => {
-
-// });
+app.delete('/v1/api/10000/reviews', (req, res) => {
+  dbReviewModel.deleteData ((review) => {
+    res.send('Successfully deleted record!')
+  })
+});
 
 
 
