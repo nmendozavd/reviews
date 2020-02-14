@@ -34,8 +34,30 @@ app.delete('/v1/api/10000/reviews', (req, res) => {
 });
 
 ## API Routes 
-GETS reviews from random record
-app.get('/v1/api/:accommodationId/reviews', (req, res) => {
+GET '/vi/api/listing/:id' - Read listing info for one listing id
+* request body is empty
+* returns an object with 2 nested objects and 1 nested array that includes listing information and reviews:
+`{
+    id: { type: Number, required: true },
+    scores: {
+      accuracy: { type: Decimal },
+      communication: { type: Decimal },
+      cleanliness: { type: Decimal },
+      checkIn: { type: Decimal },
+      value: { type: Decimal },
+      location: { type: Decimal },git
+    },
+    reviewDetails: [{
+      name: String,
+      userPicture: String,
+      userPageLink: String,
+      date: Date,
+      reviewText: String
+    }]
+  }`
+
+
+app.get('/v1/api/specficy/:accommodationId/reviews', (req, res) => {
   dbReviewModel.getAllReviewsForSpecificHouse((reviews) => {
     res.send(reviews);
   },
@@ -44,7 +66,7 @@ app.get('/v1/api/:accommodationId/reviews', (req, res) => {
 });
 
 POSTS new record at ID: 10000
-app.post('/v1/api/10000/reviews', (req, res) => {
+app.post('/v1/api/specif/10000/reviews', (req, res) => {
   dbReviewModel.insertData ((reviews) => {
     res.send('Successfully posted record!');
   });
