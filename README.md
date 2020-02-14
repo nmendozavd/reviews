@@ -37,7 +37,7 @@ app.delete('/v1/api/10000/reviews', (req, res) => {
 GET '/vi/api/listing/:id' - Read listing info for one listing id
 * request body is empty
 * returns an object with 2 nested objects and 1 nested array that includes listing information and reviews:
-`{
+```{
     id: { type: Number, required: true },
     scores: {
       accuracy: { type: Decimal },
@@ -54,7 +54,7 @@ GET '/vi/api/listing/:id' - Read listing info for one listing id
       date: Date,
       reviewText: String
     }]
-  }`
+  }```
 
 
 app.get('/v1/api/specficy/:accommodationId/reviews', (req, res) => {
