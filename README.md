@@ -3,11 +3,11 @@ Mock for reviews component at airbnb website using react and css
 
 ## API Legacy Routes
 
-GETS '/v1/api/:accommodationId/reviews' - Reads reviews from a random listing
+GET '/v1/api/:accommodationId/reviews' - Reads reviews from a random listing
 
-POSTS '/v1/api/10000/reviews' - Creates a new listing at ID 10000
+POST '/v1/api/10000/reviews' - Creates a new listing at ID 10000
 
-UPDATES '/v1/api/10000/reviews' - Updates name in record at ID: 10000
+PUT '/v1/api/10000/reviews' - Updates name in record at ID: 10000
 
 DELETE '/v1/api/10000/reviews' - Deletes listing at ID: 10000
 
@@ -15,7 +15,7 @@ DELETE '/v1/api/10000/reviews' - Deletes listing at ID: 10000
 ## API Routes 
 GET '/v2/api/listing/:id' - Read listing info for one listing id
 * request body is empty
-* returns an object with 2 nested objects and 1 nested array that includes listing information and reviews:
+* returns an object with 1 nested object and 1 nested array that includes listing information and reviews:
 ```javascript
 listing: {
     listing_id: (Number),
