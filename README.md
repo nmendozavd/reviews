@@ -1,82 +1,98 @@
-# reviews
+# Reviews
 Mock for reviews component at airbnb website using react and css
 
-## API LEGACY Routes
+## API Legacy Routes
 
-GETS reviews from random record
-app.get('/v1/api/:accommodationId/reviews', (req, res) => {
-  dbReviewModel.getAllReviewsForSpecificHouse((reviews) => {
-    res.send(reviews);
-  },
-  req.params.accommodationId
-  );
-});
+GETS '/v1/api/:accommodationId/reviews' - Reads reviews from a random listing
 
-POSTS new record at ID: 10000
-app.post('/v1/api/10000/reviews', (req, res) => {
-  dbReviewModel.insertData ((reviews) => {
-    res.send('Successfully posted record!');
-  });
-});
+POSTS '/v1/api/10000/reviews' - Creates a new listing at ID 10000
 
-UPDATES name in record at ID: 10000
-app.put('/v1/api/10000/reviews', (req, res) => {
-  dbReviewModel.updateData ((review) => {
-    res.send('Successfully updated record!')
-  })
-});
+UPDATES '/v1/api/10000/reviews' - Updates name in record at ID: 10000
 
-DELETES record at ID: 10000
-app.delete('/v1/api/10000/reviews', (req, res) => {
-  dbReviewModel.deleteData ((review) => {
-    res.send('Successfully deleted record!')
-  })
-});
+DELETE '/v1/api/10000/reviews' - Deletes listing at ID: 10000
+
 
 ## API Routes 
 GET '/v2/api/listing/:id' - Read listing info for one listing id
 * request body is empty
 * returns an object with 2 nested objects and 1 nested array that includes listing information and reviews:
 ```javascript
-{
-  id: (integer),
-  scores: {
-    accuracy: (decimal),
-    communication: (decimal),
-    cleanliness: (decimal),
-    checkIn: (decimal),
-    value: (decimal),
-    location: (decimal),
+listing: {
+    listing_id: (Number),
+    ratingOverall: (Number),
+    ratingCommunication: (Number),
+    ratingCheckIn: (Number),
+    ratingCleanliness: (Number),
+    ratingAccuracy: (Number),
+    ratingLocation: (Number),
+    ratingValue: (Number),
+    host: {
+      host_id: (Number),
+      hostPhoto: (String)
+    }
   },
-  reviewDetails: [{
-    name: (string),
-    userPicture: (string),
-    userPageLink: (string),
-    date: (date),
-    reviewText: (string)
+  review: [{
+    review_id: (Number),
+    reviewerName: (String),
+    reviewerPhoto: (String),
+    reviewerLink: (String),
+    date: (Date),
+    reviewerComment: (String),
+    scores: {
+      accuracy: (Number),
+      communication: (Number),
+      cleanliness: (Number),
+      checkIn: (Number),
+      value: (Number),
+      location: (Number)
+    },
   }]
-}
+});
 ```
 
 POST '/v2/api/listing/:id/reviews - Create new review for current listing
 * request body:
 ```javascript
-reviewDetails: [{
-  name: (string),
-  userPicture: (string),
-  userPageLink: (string),
-  date: (date),
-  reviewText: (string)
-}]
+ review: [{
+    review_id: (Number),
+    reviewerName: (String),
+    reviewerPhoto: (String),
+    reviewerLink: (String),
+    date: (Date),
+    reviewerComment: (String),
+    scores: {
+      accuracy: (Number),
+      communication: (Number),
+      cleanliness: (Number),
+      checkIn: (Number),
+      value: (Number),
+      location: (Number)
+    },
+  }]
+});
 ```
 * returns completed status code
 
 PUT'/v2/api/listing/:id/reviews' - Updates review for a current listing
 * request body:
 ```javascript
-reviewDetails: [{
-  reviewText: (string)
-}]
+review: [{
+    review_id: (Number),
+    reviewerName: (String),
+    reviewerPhoto: (String),
+    reviewerLink: (String),
+    date: (Date),
+    reviewerComment: (String),
+    scores: {
+      accuracy: (Number),
+      communication: (Number),
+      cleanliness: (Number),
+      checkIn: (Number),
+      value: (Number),
+      location: (Number)
+    },
+  }]
+});
 ```
 * returns completed status code
 
