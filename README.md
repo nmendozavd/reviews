@@ -37,7 +37,7 @@ app.delete('/v1/api/10000/reviews', (req, res) => {
 GET '/v2/api/listing/:id' - Read listing info for one listing id
 * request body is empty
 * returns an object with 2 nested objects and 1 nested array that includes listing information and reviews:
-```
+```javascript
 {
   id: (integer),
   scores: {
@@ -60,7 +60,7 @@ GET '/v2/api/listing/:id' - Read listing info for one listing id
 
 POST '/v2/api/listing/:id/reviews - Create new review for current listing
 * request body:
-```
+```javascript
 reviewDetails: [{
   name: (string),
   userPicture: (string),
@@ -68,12 +68,12 @@ reviewDetails: [{
   date: (date),
   reviewText: (string)
 }]
-'''
+```
 * returns completed status code
 
 PUT'/v2/api/listing/:id/reviews' - Updates review for a current listing
 * request body:
-```
+```javascript
 reviewDetails: [{
   reviewText: (string)
 }]
