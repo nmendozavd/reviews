@@ -1,16 +1,33 @@
 const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost/airbnbReviews', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/SDC', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-  console.log("we're connected to airbnb DB!");
+db.once('open', function() {
+  console.log('Ay dawg, we\'re connected to MongoDB');
 })
 
-var reviewSchema = new mongoose.Schema(
+var listingSchema = new mongoose.Schema(
   {
-    accommodationId: { type: Number, required: true },
+    listing_id: { type: Number, required: true },
+    ratingOverall: { type: mongoose.Types.Decimal128 },
+    ratingCommunication: { type: mongoose.Types.Decimal128 },
+    ratingCheckIn: { type: mongoose.Types.Decimal128 },
+    ratingCleanliness: { type: mongoose.Types.Decimal128 },
+    ratingAccuracy: { type: mongoose.Types.Decimal128 },
+    ratingLocation: { type: mongoose.Types.Decimal128 },
+    ratingValue: { type: mongoose.Types.Decimal128 },
+    host: {
+      host_id: {type: Number },
+      hostPhoto: String,
+    },
+  reviews: [{
+    review_id: { type: Number },
+    reviewerName: String,
+    reviewerPhoto: String,
+    reviewerLink: String,
+    date: Date,
+    reviewerComment: String,
     scores: {
       accuracy: { type: mongoose.Types.Decimal128 },
       communication: { type: mongoose.Types.Decimal128 },
@@ -18,109 +35,12 @@ var reviewSchema = new mongoose.Schema(
       checkIn: { type: mongoose.Types.Decimal128 },
       value: { type: mongoose.Types.Decimal128 },
       location: { type: mongoose.Types.Decimal128 },
-      outstandingHospitality: Boolean,
-      quickResponses: Boolean,
-      stylishSpace: Boolean,
-      sparklingClean: Boolean,
-      amazingAmenities: Boolean
     },
-    reviewAuthorDetails: {
-      name: String,
-      userPicture: String,
-      userPageLink: String,
-      date: Date,
-      reviewText: String
-    }
-  }
-);
+  }]
+});
 
-const Review = mongoose.model('Review', reviewSchema);
+const Listing = mongoose.model('Listing', listingSchema);
 
-// READ ITEMS FROM DC (GET)
-const getAllReviewsForSpecificHouse = function (callback, houseId) {
-  Review.find({ "accommodationId": houseId }, function (err, reviews) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(reviews);
-      callback(reviews);
-    }
-  });
-};
+// CRUD operations
 
-// INSERT INTO DB (POST)
-const insertData = function (callback) {
-  Review.insertMany(
-    {
-    accommodationId: 10000,
-    scores: {
-      accuracy: 3.6,
-      communication: 3.5,
-      cleanliness: 4.5,
-      checkIn: 3.0,
-      value: 4.5,
-      location: 3.1,
-      outstandingHospitality: true,
-      quickResponses: true,
-      stylishSpace: true,
-      sparklingClean: true,
-      amazingAmenities:true
-    },
-    reviewAuthorDetails: {
-      name: 'Noel Mendoza',
-      userPicture: 'https://airbnb-reviews-users-pictures.s3-us-west-1.amazonaws.com/1986.jpg',
-      userPageLink: 'http://burnice.com',
-      date: '2020-02-11T12:18:53.109Z',
-      reviewText: 'I would never stay in this shit hole again!'
-    }
-  }, function (err, review) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(review)
-      callback('Posted to DB successfully');
-    }
-  }
-
-  )
-}
-
-// UPDATE RECORD IN DB (PUT)
-const updateData = function (callback) {
-  Review.updateOne(
-    { "accommodationId": 10000 },
-    { 
-      $set: { "reviewAuthorDetails.name": "John Doe" }
-    }, function (err, review) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(review);
-        callback('Successfully updated record')
-      }
-    }
-
-  )
-}
-
-// DELETE RECORD IN DB (DELETE)
-const deleteData = function (callback) {
-  Review.deleteOne(
-    { "accommodationId": 10000 }, function (err , review) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(review);
-        callback('Successfully deleted record');
-      }
-    }
-  )
-}
-
-module.exports = {
-  Review,
-  getAllReviewsForSpecificHouse,
-  insertData,
-  updateData,
-  deleteData
-};
+module.exports = { Listing };

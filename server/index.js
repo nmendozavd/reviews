@@ -6,7 +6,7 @@ const path = require('path');
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-//CRUD Operations
+//LEGACY CRUD Operations
 
 app.get('/v1/api/:accommodationId/reviews', (req, res) => {
   dbReviewModel.getAllReviewsForSpecificHouse((reviews) => {
