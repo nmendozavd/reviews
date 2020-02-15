@@ -31,7 +31,7 @@ listing: {
       hostPhoto: (String)
     }
   },
-  review: [{
+  reviews: [{
     review_id: (Number),
     reviewerName: (String),
     reviewerPhoto: (String),
@@ -53,7 +53,7 @@ listing: {
 POST '/v2/api/listing/:id/reviews - Create new review for current listing
 * request body:
 ```javascript
- review: [{
+ reviews: [{
     review_id: (Number),
     reviewerName: (String),
     reviewerPhoto: (String),
@@ -76,7 +76,7 @@ POST '/v2/api/listing/:id/reviews - Create new review for current listing
 PUT'/v2/api/listing/:id/reviews' - Updates review for a current listing
 * request body:
 ```javascript
-review: [{
+reviews: [{
     review_id: (Number),
     reviewerName: (String),
     reviewerPhoto: (String),
@@ -96,6 +96,6 @@ review: [{
 ```
 * returns completed status code
 
-DELETE '/api/listing/:id/reviews' - Delete a particular review
+DELETE '/api/listing/:id/reviews/:id' - Delete a particular review
 * request body is empty
 * returns completed status code
