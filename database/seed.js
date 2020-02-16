@@ -1,5 +1,23 @@
 const faker = require('faker');
-const dbListingModel = require('./index.js/index.js');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+// const dbListingModel = require('./index.js');
+
+
+const csvWriter = createCsvWriter({
+  path: '/Users/noelmendoza/Desktop/file.csv',
+  header: [
+    { id: 'listing_id', title: 'listing_id' },
+    { id: 'ratingOverall', title: 'ratingOverall' },
+    { id: 'ratingCommunication', title: 'ratingCommunication' },
+    { id: 'ratingCheckIn', title: 'ratingCheckIn' },
+    { id: 'ratingCleanliness', title: 'ratingCleanliness' },
+    { id: 'ratingAccuracy', title: 'ratingAccuracy' },
+    { id: 'ratingLocation', title: 'ratingLocation' },
+    { id: 'ratingValue', title: 'ratingValue' },
+    { id: 'host', title: 'host.host_id'},
+    { id: 'reviews', title: 'reviews.review_id' }
+  ]
+});
 
 // Reviews array for each listing
 let reviewsArr = [];
@@ -23,12 +41,14 @@ for (let i = 0; i < 5; i++) {
   })
 }
 
+// arr for listings 
+var listingsArr = [];
 // data size 
-const data_size = 10000000;
+const data_size = 10;
 // listing and reviews of listing 
-for (let i = 0; i < data_size; i++) {
-  const listings = {
-    listing_id: i,
+for (let j = 0; j < data_size; j++) {
+  listingsArr.push({
+    listing_id: j,
     ratingOverall: faker.finance.amount(1,5,1),
     ratingCommunication: faker.finance.amount(1,5,1),
     ratingCheckIn: faker.finance.amount(1,5,1),
@@ -37,21 +57,30 @@ for (let i = 0; i < data_size; i++) {
     ratingLocation: faker.finance.amount(1,5,1),
     ratingValue: faker.finance.amount(1,5,1),
     host: {
-      host_id: i,
+      host_id: j,
       hostPhoto: `https://airbnb-reviews-users-pictures.s3-us-west-1.amazonaws.com/${Math.ceil(Math.random() * 3000)}.jpg`
     },
     reviews: reviewsArr,
-  };
+  });
   
-  const listingEntry = new dbListingModel.Listing(listings);
+  // const listingEntry = new dbListingModel.Listing(listings);
 
-  listingEntry.save((err, listing) => {
-    if(err) {
-      console.log(err);
-    } else {
-      console.log(`Listing #${listingEntry.listing_id} has been saved to the DB!.`);
-    }
-  })
+
+  csvWriter.writeRecords(listingsArr)       // returns a promise
+    .then(() => {
+      console.log('....done');
+    });
+
+  
+
+
+  // listingEntry.save((err, listing) => {
+  //   if(err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log(`Listing #${listingEntry.listing_id} has been saved to the DB!.`);
+  //   }
+  // })
 
 
 };
