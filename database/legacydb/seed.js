@@ -1,5 +1,5 @@
 const faker = require('faker');
-const dbReviewModel = require('./index1.js/index.js');
+const dbReviewModel = require('./index.js/index.js.js');
 
 const FAKE_DATA_SIZE = 10000;
 

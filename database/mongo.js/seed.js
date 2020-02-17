@@ -1,4 +1,5 @@
 const faker = require('faker');
+const fs = require('fs');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 // const dbListingModel = require('./index.js');
 
@@ -14,7 +15,7 @@ const csvWriter = createCsvWriter({
     { id: 'ratingAccuracy', title: 'ratingAccuracy' },
     { id: 'ratingLocation', title: 'ratingLocation' },
     { id: 'ratingValue', title: 'ratingValue' },
-    { id: 'host', title: 'host.host_id'},
+    { id: 'host', title: 'host.host_id' },
     { id: 'reviews', title: 'reviews.review_id' }
   ]
 });
@@ -71,7 +72,6 @@ for (let j = 0; j < data_size; j++) {
       console.log('....done');
     });
 
-  
 
 
   // listingEntry.save((err, listing) => {
@@ -83,5 +83,5 @@ for (let j = 0; j < data_size; j++) {
   // })
 
 
-};
+// };
 
