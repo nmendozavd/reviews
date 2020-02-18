@@ -1,42 +1,38 @@
 var faker = require('faker');
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const fs = require('fs');
 
-// Writing table to CSV file
-const csvWriter = createCsvWriter({
-  header: [
-    { id: 'userName', title: 'userName' },
-    { id: 'userPhoto', title: 'userPhoto' }
-  ],
-  path: '/Users/noelmendoza/Documents/Noel Mendoza/Coding/Hack Reactor/senior_section/system_design_capstone/reviews/csv/users.csv'
-});
+const writeUsers = fs.createWriteStream('../../../csv/users.csv');
+writeUsers.write('id,userName,userPhoto\n', 'utf8');
 
-var usersArr = [];
-// data size 
-const data_size = 1000;
-// listing and reviews of listing 
-for (let j = 0; j < data_size; j++) {
-  usersArr.push({
-    userName: faker.name.findName(),
-    userPhoto: `https://airbnb-reviews-users-pictures.s3-us-west-1.amazonaws.com/${Math.ceil(Math.random() * 3000)}.jpg`
-  });
-
-  csvWriter.writeRecords(usersArr)       // returns a promise
-    .then(() => {
-      console.log('...Done');
-    });
+function writeTenMillionUsers(writer, encoding, callback) {
+  let i = 5000000;
+  let id = 0;
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+      id += 1;
+      const userName = faker.name.findName();
+      const userPhoto = faker.internet.avatar();
+      const data = `${id},${userName},${userPhoto}\n`;
+      if (i === 0) {
+        writer.write(data, encoding, callback);
+      } else {
+        // see if we should continue, or wait
+        // don't pass the callback, because we're not done yet.
+        ok = writer.write(data, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      // had to stop early!
+      // write some more once it drains
+      writer.once('drain', write);
+    }
+  }
+  write()
 }
 
-// const createUser = () => ({
-//   userName: faker.name.findName(),
-//   userPhoto: `https://airbnb-reviews-users-pictures.s3-us-west-1.amazonaws.com/${Math.ceil(Math.random() * 3000)}.jpg`
-// })
-
-// exports.seed = function (knex) {
-//   // Deletes ALL existing entries
-//   const fakeUser = [];
-//   const desiredFakeUser = 20;
-//   for (let i = 0; i < desiredFakeUser; i++) {
-//     fakeUser.push(createUser());
-//   }
-//   return knex('user').insert(fakeUser);
-// };
+writeTenMillionUsers(writeUsers, 'utf-8', () => {
+  writeUsers.end();
+  console.log('...ay dawg, finished exporting cvs.')
+});

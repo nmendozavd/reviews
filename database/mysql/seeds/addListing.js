@@ -1,63 +1,66 @@
 var faker = require('faker');
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const fs = require('fs');
 
-// Writing table to CSV file
-const csvWriter = createCsvWriter({
-  header: [
-    { id: 'listingTitle', title: 'listingTitle' },
-    { id: 'ratingOverall', title: 'ratingOverall' },
-    { id: 'ratingCommunication', title: 'ratingCommunication' },
-    { id: 'ratingCheck_in', title: 'ratingCheck_in' },
-    { id: 'ratingCleanliness', title: 'ratingCleanliness' },
-    { id: 'ratingAccuracy', title: 'ratingAccuracy' },
-    { id: 'ratingLocation', title: 'ratingLocation' },
-    { id: 'ratingValue', title: 'ratingValue' },
-    { id: 'host', title: 'host' },
-  ],
-  path: '/Users/noelmendoza/Documents/Noel Mendoza/Coding/Hack Reactor/senior_section/system_design_capstone/reviews/csv/listings.csv'
-});
+const writeUsers = fs.createWriteStream('../../../csv/listings.csv');
+writeUsers.write('id,listingTitle,ratingOverall,ratingCommunication,ratingCheck_in,ratingCleanliness,ratingAccuracy,ratingLocation,ratingValue,host\n', 'utf8');
 
-var listingArr = [];
-// data size 
-const data_size = 1000;
-// listing and reviews of listing 
-for (let j = 0; j < data_size; j++) {
-  listingArr.push({
-    listingTitle: faker.address.streetAddress(),
-    ratingOverall: faker.finance.amount(1, 5, 1),
-    ratingCommunication: faker.finance.amount(1, 5, 1),
-    ratingCheck_in: faker.finance.amount(1, 5, 1),
-    ratingCleanliness: faker.finance.amount(1, 5, 1),
-    ratingAccuracy: faker.finance.amount(1, 5, 1),
-    ratingLocation: faker.finance.amount(1, 5, 1),
-    ratingValue: faker.finance.amount(1, 5, 1),
-    host: faker.random.number({ min: 1, max: 20 }),
-  });
+function writeTenMillionUsers(writer, encoding, callback) {
+  let i = 10;
+  let id = 0;
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+      id += 1;
+      const listingTitle = faker.address.streetAddress();
+      const ratingOverall = faker.finance.amount(1, 5, 1);
+      const ratingCommunication = faker.finance.amount(1, 5, 1);
+      const ratingCheck_in = faker.finance.amount(1, 5, 1);
+      const ratingCleanliness = faker.finance.amount(1, 5, 1);
+      const ratingAccuracy = faker.finance.amount(1, 5, 1);
+      const ratingLocation = faker.finance.amount(1, 5, 1);
+      const ratingValue = faker.finance.amount(1, 5, 1);
+      const host = faker.random.number({ min: 1, max: 50000000 }),
 
-  csvWriter.writeRecords(listingArr)       // returns a promise
-    .then(() => {
-      console.log('...Done');
-    });
+      const data = `${id},${listingTitle},${ratingOverall},${ratingCommunication},${ratingCheck_in},${ratingCleanliness},${ratingAccuracy},${ratingLocation},${ratingValue},${host}\n`;
+      if (i === 0) {
+        writer.write(data, encoding, callback);
+      } else {
+        // see if we should continue, or wait
+        // don't pass the callback, because we're not done yet.
+        ok = writer.write(data, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      // had to stop early!
+      // write some more once it drains
+      writer.once('drain', write);
+    }
+  }
+  write()
 }
 
-// const createListing = () => ({
-//   listingTitle: faker.address.streetAddress(),
-//   ratingOverall: faker.finance.amount(1, 5, 1),
-//   ratingCommunication: faker.finance.amount(1, 5, 1),
-//   ratingCheck_in: faker.finance.amount(1, 5, 1),
-//   ratingCleanliness: faker.finance.amount(1, 5, 1),
-//   ratingAccuracy: faker.finance.amount(1, 5, 1),
-//   ratingLocation: faker.finance.amount(1, 5, 1),
-//   ratingValue: faker.finance.amount(1, 5, 1),
-//   host: faker.random.number({ min: 1, max: 20 }),
-// })
+writeTenMillionUsers(writeUsers, 'utf-8', () => {
+  writeUsers.end();
+  console.log('...ay dawg, finished exporting cvs.')
+});
 
-// exports.seed = function (knex) {
-//   // Deletes ALL existing entries
-//   const fakeListing = [];
-//   const desiredFakeListing = 20;
-//   for (let i = 0; i < desiredFakeListing; i++) {
-//     fakeListing.push(createListing());
-//   }
-//   return knex('listing').insert(fakeListing);
-// };
+
+// var listingArr = [];
+// // data size 
+// const data_size = 1000000;
+// // listing and reviews of listing 
+// for (let j = 0; j < data_size; j++) {
+//   listingArr.push({
+//     listingTitle: faker.address.streetAddress(),
+//     ratingOverall: faker.finance.amount(1, 5, 1),
+//     ratingCommunication: faker.finance.amount(1, 5, 1),
+//     ratingCheck_in: faker.finance.amount(1, 5, 1),
+//     ratingCleanliness: faker.finance.amount(1, 5, 1),
+//     ratingAccuracy: faker.finance.amount(1, 5, 1),
+//     ratingLocation: faker.finance.amount(1, 5, 1),
+//     ratingValue: faker.finance.amount(1, 5, 1),
+//     host: faker.random.number({ min: 1, max: 20 }),
+//   });
+
+

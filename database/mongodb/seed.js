@@ -1,6 +1,5 @@
 const faker = require('faker');
 const fs = require('fs');
-// const { Parser, transform: { unwind } } = require('json2csv');
 const { Parser } = require('json2csv');
 
 
@@ -27,7 +26,7 @@ for (let i = 0; i < 5; i++) {
 
 var listings = [];
 
-const data_size = 1000;
+const data_size = 10000000;
 
 for (let j = 0; j < data_size; j++) {
   listings.push(
@@ -50,14 +49,11 @@ for (let j = 0; j < data_size; j++) {
 };
 
 const fields = ['listing_id', 'ratingOverall', 'ratingCommunication', 'ratingCheckIn', 'ratingCleanliness', 'ratingAccuracy', 'ratingLocation', 'ratingValue', 'host.host_id', 'host.hostName', 'host.hostPhoto', 'reviews.review_id', 'reviews.reviewerName', 'reviews.reviewerPhoto', 'reviews.reviewerLink', 'reviews.date', 'reviews.reviewerComment', 'reviews.scores.accuracy', 'reviews.scores.communication', 'reviews.scores.cleanliness', 'reviews.scores.checkIn', 'reviews.scores.value', 'reviews.scores.location'];
-// const json2csvParser = new Parser({ transforms: [unwind('reviews')] });
-
-// const json2csvParser = new Parser({ fields });
 const json2csvParser = new Parser({ fields, unwind: ['reviews', 'reviews.scores'], unwindBlank: true });
 const csv = json2csvParser.parse(listings);
 
 
-fs.writeFile('../../csv/mongo.csv', csv, function (err) {
+fs.writeFile('mongo.csv', csv, function (err) {
   if (err) throw err;
   console.log('...done');
 });
