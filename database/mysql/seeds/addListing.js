@@ -5,7 +5,7 @@ const writeUsers = fs.createWriteStream('../../../csv/listings.csv');
 writeUsers.write('id,listingTitle,ratingOverall,ratingCommunication,ratingCheck_in,ratingCleanliness,ratingAccuracy,ratingLocation,ratingValue,host\n', 'utf8');
 
 function writeTenMillionUsers(writer, encoding, callback) {
-  let i = 10;
+  let i = 10000000;
   let id = 0;
   function write() {
     let ok = true;
@@ -20,7 +20,7 @@ function writeTenMillionUsers(writer, encoding, callback) {
       const ratingAccuracy = faker.finance.amount(1, 5, 1);
       const ratingLocation = faker.finance.amount(1, 5, 1);
       const ratingValue = faker.finance.amount(1, 5, 1);
-      const host = faker.random.number({ min: 1, max: 50000000 }),
+      const host = faker.random.number({ min: 1, max: 50000000 });
 
       const data = `${id},${listingTitle},${ratingOverall},${ratingCommunication},${ratingCheck_in},${ratingCleanliness},${ratingAccuracy},${ratingLocation},${ratingValue},${host}\n`;
       if (i === 0) {
