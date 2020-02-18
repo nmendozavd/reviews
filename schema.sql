@@ -29,8 +29,8 @@ CREATE TABLE listing (
   ratingLocation DECIMAL(2,1),
   ratingValue DECIMAL(2,1), 
   host INT,
-  PRIMARY KEY (listing_id),
-  FOREIGN KEY (host) REFERENCES host(host_id)
+  PRIMARY KEY (listing_id)
+  -- FOREIGN KEY (host) REFERENCES host(host_id)
 );
 
 CREATE TABLE review (
@@ -47,10 +47,10 @@ CREATE TABLE review (
   host INT,
   listing INT,
   user INT,
-  PRIMARY KEY (review_id),
-  FOREIGN KEY (host) REFERENCES host(host_id),
-  FOREIGN KEY (listing) REFERENCES listing(listing_id),
-  FOREIGN KEY (user) REFERENCES user(user_id)
+  PRIMARY KEY (review_id)
+  -- FOREIGN KEY (host) REFERENCES host(host_id),
+  -- FOREIGN KEY (listing) REFERENCES listing(listing_id),
+  -- FOREIGN KEY (user) REFERENCES user(user_id)
 );
 
 
