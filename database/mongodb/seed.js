@@ -1,26 +1,9 @@
 const faker = require('faker');
 const fs = require('fs');
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-// const dbListingModel = require('./index.js');
+// const { Parser, transform: { unwind } } = require('json2csv');
+const { Parser } = require('json2csv');
 
 
-const csvWriter = createCsvWriter({
-  path: '/Users/noelmendoza/Desktop/file.csv',
-  header: [
-    { id: 'listing_id', title: 'listing_id' },
-    { id: 'ratingOverall', title: 'ratingOverall' },
-    { id: 'ratingCommunication', title: 'ratingCommunication' },
-    { id: 'ratingCheckIn', title: 'ratingCheckIn' },
-    { id: 'ratingCleanliness', title: 'ratingCleanliness' },
-    { id: 'ratingAccuracy', title: 'ratingAccuracy' },
-    { id: 'ratingLocation', title: 'ratingLocation' },
-    { id: 'ratingValue', title: 'ratingValue' },
-    { id: 'host', title: 'host.host_id' },
-    { id: 'reviews', title: 'reviews.review_id' }
-  ]
-});
-
-// Reviews array for each listing
 let reviewsArr = [];
 
 for (let i = 0; i < 5; i++) {
@@ -42,36 +25,45 @@ for (let i = 0; i < 5; i++) {
   })
 }
 
-// arr for listings 
-var listingsArr = [];
-// data size 
-const data_size = 10;
-// listing and reviews of listing 
+var listings = [];
+
+const data_size = 1000;
+
 for (let j = 0; j < data_size; j++) {
-  listingsArr.push({
+  listings.push(
+  {
     listing_id: j,
-    ratingOverall: faker.finance.amount(1,5,1),
-    ratingCommunication: faker.finance.amount(1,5,1),
-    ratingCheckIn: faker.finance.amount(1,5,1),
-    ratingCleanliness: faker.finance.amount(1,5,1),
-    ratingAccuracy: faker.finance.amount(1,5,1),
-    ratingLocation: faker.finance.amount(1,5,1),
-    ratingValue: faker.finance.amount(1,5,1),
+    ratingOverall: faker.finance.amount(1, 5, 1),
+    ratingCommunication: faker.finance.amount(1, 5, 1),
+    ratingCheckIn: faker.finance.amount(1, 5, 1),
+    ratingCleanliness: faker.finance.amount(1, 5, 1),
+    ratingAccuracy: faker.finance.amount(1, 5, 1),
+    ratingLocation: faker.finance.amount(1, 5, 1),
+    ratingValue: faker.finance.amount(1, 5, 1),
     host: {
       host_id: j,
+      hostName: faker.name.findName(),
       hostPhoto: `https://airbnb-reviews-users-pictures.s3-us-west-1.amazonaws.com/${Math.ceil(Math.random() * 3000)}.jpg`
     },
     reviews: reviewsArr,
   });
-  
-  // const listingEntry = new dbListingModel.Listing(listings);
+};
+
+const fields = ['listing_id', 'ratingOverall', 'ratingCommunication', 'ratingCheckIn', 'ratingCleanliness', 'ratingAccuracy', 'ratingLocation', 'ratingValue', 'host.host_id', 'host.hostName', 'host.hostPhoto', 'reviews.review_id', 'reviews.reviewerName', 'reviews.reviewerPhoto', 'reviews.reviewerLink', 'reviews.date', 'reviews.reviewerComment', 'reviews.scores.accuracy', 'reviews.scores.communication', 'reviews.scores.cleanliness', 'reviews.scores.checkIn', 'reviews.scores.value', 'reviews.scores.location'];
+// const json2csvParser = new Parser({ transforms: [unwind('reviews')] });
+
+// const json2csvParser = new Parser({ fields });
+const json2csvParser = new Parser({ fields, unwind: ['reviews', 'reviews.scores'], unwindBlank: true });
+const csv = json2csvParser.parse(listings);
 
 
-  csvWriter.writeRecords(listingsArr)       // returns a promise
-    .then(() => {
-      console.log('....done');
-    });
+fs.writeFile('../../csv/mongo.csv', csv, function (err) {
+  if (err) throw err;
+  console.log('...done');
+});
+    
 
+//   // const listingEntry = new dbListingModel.Listing(listings);
 
 
   // listingEntry.save((err, listing) => {

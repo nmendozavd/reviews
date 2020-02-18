@@ -19,6 +19,7 @@ var listingSchema = new mongoose.Schema(
     ratingValue: { type: mongoose.Types.Decimal128 },
     host: {
       host_id: {type: Number },
+      hostName: String,
       hostPhoto: String,
     },
   reviews: [{
