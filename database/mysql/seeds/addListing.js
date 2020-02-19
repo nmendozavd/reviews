@@ -20,7 +20,7 @@ function writeTenMillionUsers(writer, encoding, callback) {
       const ratingAccuracy = faker.finance.amount(1, 5, 1);
       const ratingLocation = faker.finance.amount(1, 5, 1);
       const ratingValue = faker.finance.amount(1, 5, 1);
-      const host = faker.random.number({ min: 1, max: 50000000 });
+      const host = faker.random.number({ min: 1, max: 5000000 });
 
       const data = `${id},${listingTitle},${ratingOverall},${ratingCommunication},${ratingCheck_in},${ratingCleanliness},${ratingAccuracy},${ratingLocation},${ratingValue},${host}\n`;
       if (i === 0) {

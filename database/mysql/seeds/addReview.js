@@ -22,7 +22,7 @@ function writeTenMillionUsers(writer, encoding, callback) {
       const ratingLocation = faker.finance.amount(1, 5, 1);
       const ratingValue = faker.finance.amount(1, 5, 1);
       const host = faker.random.number({ min: 1, max: 5000000 });
-      const listing = faker.random.number({ min: 1, max: 5000000 });
+      const listing = faker.random.number({ min: 1, max: 10000000 });
       const user = faker.random.number({ min: 1, max: 5000000 });
       
       const data = `${id},${date},${comment},${ratingOverall},${ratingCommunication},${ratingCheck_in},${ratingCleanliness},${ratingAccuracy},${ratingLocation},${ratingValue},${host},${listing},${user}\n`;
