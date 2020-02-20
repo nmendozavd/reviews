@@ -34,6 +34,6 @@ function writeTenMillionUsers(writer, encoding, callback) {
 
 writeTenMillionUsers(writeUsers, 'utf-8', () => {
   writeUsers.end();
-  console.log('...ay dawg, finished exporting cvs.')
+  console.log('...ay dawg, finished exporting csv.')
 });
 
