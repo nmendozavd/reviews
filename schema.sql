@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS listings (
 
 CREATE TABLE IF NOT EXISTS reviews (
   review_id INT NOT NULL AUTO_INCREMENT,
-  date DATETIME,
+  date VARCHAR(255),
   comment TEXT,
   ratingOverall DECIMAL(2,1),
   ratingCommunication DECIMAL(2,1), 
@@ -73,11 +73,11 @@ CREATE TABLE IF NOT EXISTS reviews (
 -- LINES TERMINATED BY '\n'
 -- IGNORE 1 ROWS;
 
-LOAD DATA LOCAL INFILE './csv/reviews.csv'
-INTO TABLE reviews
-FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
+-- LOAD DATA LOCAL INFILE './csv/reviews5.csv'
+-- INTO TABLE reviews
+-- FIELDS TERMINATED BY ',' 
+-- LINES TERMINATED BY '\n'
+-- IGNORE 1 ROWS;
 
 
 

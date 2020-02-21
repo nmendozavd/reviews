@@ -1,7 +1,7 @@
 var faker = require('faker');
 const fs = require('fs');
 
-const writeUsers = fs.createWriteStream('../../../csv/reviews1.csv');
+const writeUsers = fs.createWriteStream('../../../csv/reviews.csv');
 writeUsers.write('id,date,comment,ratingOverall,ratingCommunication,ratingCheck_in,ratingCleanliness,ratingAccuracy,ratingLocation,ratingValue,host,listing,user\n', 'utf8');
 
 function writeTenMillionUsers(writer, encoding, callback) {
