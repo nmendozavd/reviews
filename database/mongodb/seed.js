@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const faker = require('faker');
 const Listing = require('./index.js')
-require('events').EventEmitter.prototype._maxListeners = 10000;
+require('events').EventEmitter.prototype._maxListeners = 1000;
 
 async function seedDB(outer, inner) {
   let counter = 0;
@@ -9,7 +9,7 @@ async function seedDB(outer, inner) {
     let listingsArr = [];
     for (let i = 0; i < inner; i++) {
       let obj = {
-        listing_id: i,
+        listing_id: counter,
         ratingOverall: faker.finance.amount(1, 5, 1),
         ratingCommunication: faker.finance.amount(1, 5, 1),
         ratingCheckIn: faker.finance.amount(1, 5, 1),
@@ -18,13 +18,13 @@ async function seedDB(outer, inner) {
         ratingLocation: faker.finance.amount(1, 5, 1),
         ratingValue: faker.finance.amount(1, 5, 1),
         host: {
-          host_id: i,
+          host_id: counter,
           hostName: faker.name.findName(),
           hostPhoto: faker.internet.avatar(),
         },
         reviews: [
           { 
-            review_id: i,
+            review_id: 1,
             reviewerName: faker.name.findName(),
             reviewerPhoto: faker.internet.avatar(),
             reviewerLink: faker.internet.url(),
@@ -40,7 +40,7 @@ async function seedDB(outer, inner) {
             }
           },
           {
-            review_id: i+=1,
+            review_id: 2,
             reviewerName: faker.name.findName(),
             reviewerPhoto: faker.internet.avatar(),
             reviewerLink: faker.internet.url(),
@@ -56,7 +56,7 @@ async function seedDB(outer, inner) {
             }
           },
           {
-            review_id: i+=2,
+            review_id: 3,
             reviewerName: faker.name.findName(),
             reviewerPhoto: faker.internet.avatar(),
             reviewerLink: faker.internet.url(),
@@ -85,9 +85,9 @@ async function seedDB(outer, inner) {
   }
 }
 
-
-seedDB(10000, 1000);
-console.log('...done');
 console.time('seed time');
+seedDB(1000, 10000);
 console.timeEnd('seed time');
+
+
 
