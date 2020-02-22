@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "seedmongo": "node --max_old_space_size=1600 database/mongodb/seed.js",
     "seedmysql": "node --max_old_space_size=1600 database/mysql/seeds/",
     "react-dev": "webpack -d --watch",
     "start": "nodemon server/index.js"
