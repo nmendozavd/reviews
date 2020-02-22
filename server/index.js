@@ -1,40 +1,22 @@
 const express = require('express');
-const dbReviewModel = require('../database/index.js');
+const db = require('../database/mysql/index.js');
 const app = express();
-const port = 2020;
+const port = 3000;
 const path = require('path');
+const { getListing } = require('../database/mysql/controller/index.js');
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-//LEGACY CRUD Operations
-
-app.get('/v1/api/:accommodationId/reviews', (req, res) => {
-  dbReviewModel.getAllReviewsForSpecificHouse((reviews) => {
-    res.send(reviews);
-  },
-  req.params.accommodationId
-  );
-});
-
-app.post('/v1/api/10000/reviews', (req, res) => {
-  dbReviewModel.insertData ((reviews) => {
-    res.send('Successfully posted record!');
-  });
-});
+app.get('/v1/api/listing/:listing_id', getListing);
 
 
-app.put('/v1/api/10000/reviews', (req, res) => {
-  dbReviewModel.updateData ((review) => {
-    res.send('Successfully updated record!')
-  })
-});
 
 
-app.delete('/v1/api/10000/reviews', (req, res) => {
-  dbReviewModel.deleteData ((review) => {
-    res.send('Successfully deleted record!')
-  })
-});
+// app.post('', (req, res) => {
+
+// });
+
+
 
 
 
