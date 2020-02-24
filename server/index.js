@@ -12,5 +12,8 @@ app.get('/v1/api/listing/:listing_id', controller.getListing);
 
 app.post('/v1/api/listing/:listing_id/reviews/:review_id', controller.postReview);
 
+app.put('/v1/api/listing/:listing_id/reviews/:review_id', controller.updateReview);
+
+app.delete('/v1/api/listing/:listing_id/reviews/:review_id', controller.deleteReview);
 
 app.listen(port, () => console.log(`Reviews server is listening on port ${port}!\n`))
