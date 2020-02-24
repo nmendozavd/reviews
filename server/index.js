@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 const db = require('../database/mysql/db.js');
 const app = express();
@@ -6,7 +7,6 @@ const path = require('path');
 const controller = require('./controller/reviews.js');
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
-
 
 app.get('/v1/api/listing/:listing_id', controller.getListing);
 
