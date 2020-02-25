@@ -5,8 +5,10 @@ const app = express();
 const port = 3000;
 const path = require('path');
 const controller = require('./controller/reviews.js');
+const cors = require('cors');
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(cors());
 
 app.get('/v1/api/listing/:listing_id', controller.getListing);
 

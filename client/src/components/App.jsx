@@ -9,9 +9,13 @@ class App extends React.Component {
       reviews: [],
       stats: {}
     };
+    
+    var min = 0;
+    var max = 10000000;
 
-    axios.get(`/v1/api/${Math.floor(Math.random() * 100)}/reviews`)
+    axios.get('http://localhost:3000/v1/api/listing/'+(Math.floor(Math.random() * (max - min)) + min))
       .then((response) => {
+        console.log(response);
         this.setState({ reviews: response.data })
         const stats = getStatsAndScores(response.data);
 
