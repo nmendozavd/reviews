@@ -15,11 +15,11 @@ class App extends React.Component {
 
     axios.get('http://localhost:3000/v1/api/listing/'+(Math.floor(Math.random() * (max - min)) + min))
       .then((response) => {
-        console.log(response);
-        this.setState({ reviews: response.data })
-        const stats = getStatsAndScores(response.data);
+        console.log('GET Request Data', response.data);
+        // this.setState({ reviews: response.data })
+        // const stats = getStatsAndScores(response.data);
 
-        this.setState({ stats: stats });
+        // this.setState({ stats: stats });
 
 
       })
